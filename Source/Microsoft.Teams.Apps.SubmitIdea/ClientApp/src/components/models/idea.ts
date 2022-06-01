@@ -28,7 +28,10 @@ export class IdeaEntity {
 export enum ApprovalStatus {
     Pending = 0,
     Approved = 1,
-    Rejected = 2
+    Rejected = 2,
+    //Ashish: Enhancement for :	The curator app needs an accepted radio button to mark an idea as accepted for development .
+    // Added Accepted Enum.
+    Accepted = 3
 }
 
 export class UpvoteEntity {
