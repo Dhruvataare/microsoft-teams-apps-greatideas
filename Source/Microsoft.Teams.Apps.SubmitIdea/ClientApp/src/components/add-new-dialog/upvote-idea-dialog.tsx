@@ -163,7 +163,7 @@ class UpvoteIdeaDialogContent extends React.Component<IIdeaDialogContentProps, I
                                     //Ashish: Enhancement for : Great ideas app needs to disable voting once an app has been approved.
                                     //added disbled condition.
                                     disabled={this.props.cardDetails.status === ApprovalStatus.Approved ? true : false}
-                                    primary loading={this.state.submitLoading} disabled={this.state.submitLoading} onClick={this.onSubmitClick} />
+                                    primary loading={this.state.submitLoading} onClick={this.onSubmitClick} />
                             </Flex.Item>
 
                         </Flex>
