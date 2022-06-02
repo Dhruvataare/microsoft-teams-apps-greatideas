@@ -25,6 +25,7 @@ export class AxiosJWTDecorator {
 			return await axios.post(url, data, config);
 		} catch (error) {
 			this.handleError(error);
+			console.log(error);
 			throw error;
 		}
 	}
@@ -45,6 +46,7 @@ export class AxiosJWTDecorator {
 			return await axios.delete(url, config);
 		} catch (error) {
 			this.handleError(error);
+			console.log(error);
 			throw error;
 		}
 	}
@@ -67,6 +69,7 @@ export class AxiosJWTDecorator {
 			return await axios.patch(url, data, config);
 		} catch (error) {
 			this.handleError(error);
+			console.log(error);
 			throw error;
 		}
 	}
@@ -85,6 +88,7 @@ export class AxiosJWTDecorator {
 			}
 			return await axios.get(url, config);
 		} catch (error) {
+			console.log(error);
 			this.handleError(error);
 			throw error;
 		}
