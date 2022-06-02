@@ -39,6 +39,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            /*Added enable endpoint routing to false*/
             services.AddMvc(option => option.EnableEndpointRouting = false);
             services.AddHttpContextAccessor();
             services.AddConfigurationSettings(this.configuration);

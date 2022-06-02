@@ -9,11 +9,9 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Authentication
     using System.Linq;
     using Microsoft.AspNetCore.Authentication.AzureAD.UI;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Identity.Web;
     using Microsoft.IdentityModel.Tokens;
 
     /// <summary>
@@ -39,9 +37,6 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Authentication
 
             // This works specifically for single tenant application.
             ValidateAuthenticationConfigurationSettings(configuration);
-
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-        .AddMicrosoftIdentityWebApi(configuration.GetSection("AzureAd"), OpenIdConnectDefaults.AuthenticationScheme);
 
             services.AddAuthentication(options => { options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme; })
                 .AddJwtBearer(options =>
