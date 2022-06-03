@@ -9,7 +9,7 @@ import * as microsoftTeams from "@microsoft/teams-js";
 import { IDiscoverPost } from "../card-view/idea-wrapper-page";
 import { WithTranslation, withTranslation } from "react-i18next";
 import { TFunction } from "i18next";
-import { IdeaEntity,ApprovalStatus } from "../models/idea";
+import { IdeaEntity } from "../models/idea";
 import UserAvatar from "../curator-team/user-avatar";
 import { generateColor } from "../../helpers/helper";
 import Constants from "../../constants/resources";
@@ -160,10 +160,7 @@ class UpvoteIdeaDialogContent extends React.Component<IIdeaDialogContentProps, I
                             <div></div>
                             <Flex.Item push>
                                 <Button content={this.props.cardDetails.isVotedByUser === true ? this.localize("unlikeButtonText") : this.localize("UpvoteButtonText")}
-                                    //Ashish: Enhancement for : Great ideas app needs to disable voting once an app has been approved.
-                                    //added disbled condition.
-                                    disabled={this.props.cardDetails.status === ApprovalStatus.Approved ? true : false}
-                                    primary loading={this.state.submitLoading} onClick={this.onSubmitClick} />
+                                    primary loading={this.state.submitLoading} disabled={this.state.submitLoading} onClick={this.onSubmitClick} />
                             </Flex.Item>
 
                         </Flex>
