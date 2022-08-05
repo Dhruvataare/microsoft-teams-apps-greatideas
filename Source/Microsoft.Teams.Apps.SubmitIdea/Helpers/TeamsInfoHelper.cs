@@ -83,8 +83,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                 conversationReference,
                 async (context, token) =>
                 {
-                    /*teamsChannelAccounts = (IEnumerable<TeamsChannelAccount>)await TeamsInfo.GetPagedTeamMembersAsync(context, teamId, null, 10, token);*/
-                    teamsChannelAccounts = await TeamsInfo.GetTeamMembersAsync(context, teamId, CancellationToken.None);
+                    teamsChannelAccounts = (IEnumerable<TeamsChannelAccount>)await TeamsInfo.GetPagedTeamMembersAsync(context, teamId, null, 10, token);
                 }, default);
 
             return teamsChannelAccounts;
@@ -112,7 +111,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
                     ChannelId = Constants.TeamsBotFrameworkChannelId,
                     ServiceUrl = serviceUrl,
                 };
-                await ((CloudAdapter)this.botAdapter).ContinueConversationAsync(
+                await ((BotFrameworkAdapter)this.botAdapter).ContinueConversationAsync(
                     this.microsoftAppCredentials.MicrosoftAppId,
                     conversationReference,
                     async (context, token) =>

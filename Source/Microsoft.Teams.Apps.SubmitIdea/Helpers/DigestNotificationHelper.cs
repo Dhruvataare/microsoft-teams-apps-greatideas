@@ -183,7 +183,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Helpers
             Attachment cardToSend,
             string serviceUrl)
         {
-            /*MicrosoftAppCredentials.TrustServiceUrl(serviceUrl);*/
+            /*AppCredentials.TrustServiceUrl(serviceUrl);*/
             string teamsChannelId = teamPreferenceEntity.TeamId;
 
             var conversationReference = new ConversationReference()

@@ -25,12 +25,11 @@ export class IdeaEntity {
     backgroundColor?: string | undefined;
 }
 
+//Enhancement: Added Accepted Status Enum
 export enum ApprovalStatus {
     Pending = 0,
     Approved = 1,
     Rejected = 2,
-    //Ashish: Enhancement for :	The curator app needs an accepted radio button to mark an idea as accepted for development .
-    // Added Accepted Enum.
     Accepted = 3
 }
 
