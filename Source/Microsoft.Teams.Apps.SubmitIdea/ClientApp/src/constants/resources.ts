@@ -47,6 +47,10 @@ export default class Resources {
 
 	public static readonly urlValidationRegEx: RegExp = /^http(s)?:\/\/(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/;
 
+	public static readonly ImpactedTeamsInputRegEx: RegExp = /^([1-9][0-9]+|[1-9])$/;
+
+	public static readonly urlAffectedTeamsInputRegEx: RegExp = /^[a-zA-Z]+$/;
+
 	public static readonly postTypes: Array<IPostType> = [
 		{ name: "Blog post", id: "1", color: "#E4A512" },
 		{ name: "Other", id: "2", color: "#1E53A3" },

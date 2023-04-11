@@ -119,8 +119,8 @@
   "ideaName": "Idea",
   "ideatorName": "Submitted by",
   "status": "Status",
-  "radioAccept": "Accept",
   "radioApprove": "Approve",
+  "radioAccept": "Accept",
   "radioReject": "Reject",
   "synopsisTitle": "Description",
   "tagsTitle": "Tags",
@@ -138,6 +138,7 @@
   "categoryPlaceholder": "Select a category",
   "pendingStatusText": "Pending",
   "approvedStatusText": "Approved",
+  "acceptedStatusText": "Accepted",
   "rejectedStatusText": "Rejected",
   "UpvotesText": "Upvotes",
   "SynopsisText": "Description",
@@ -149,7 +150,8 @@
   "noCategoryMatchFoundText": "Get started by adding categories!",
   "weeklyFrequencyText": "Weekly",
   "monthlyFrequencyText": "Monthly",
-  "approvedIdeaSuccessMessage": "Idea posted!",
+  "approvedIdeaSuccessMessage": "Idea Approved!",
+  "acceptedIdeaSuccessMessage": "Idea posted!",
   "rejectedIdeaMessage": "The idea has been rejected by you.",
   "voteSuccessMessage": "You voted successfully",
   "ideaPostedSuccessHeading": "Idea submitted!",
@@ -161,5 +163,8 @@
   "chatTitle": "Chat with ",
   "chatWithText": "Chat with {{ideator}}",
   "categoryDeleteValidationMessage": "Either one or more category are tagged for active or pending ideas and cannot be deleted.",
-  "confirmation": "Confirmation"
+  "confirmation": "Confirmation",
+  //Changes done by Ashish madan
+  "preApprovedSuccessMessage": "Thank you for providing more information on idea . Your data has been saved. Please click confirm proceed to Approve the Idea.!!",
+  "PreApprovedStatusText" :  "Pre-Approved"
 }

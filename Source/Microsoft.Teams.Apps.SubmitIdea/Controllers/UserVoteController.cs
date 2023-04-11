@@ -340,7 +340,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                     isPostSavedSuccessful = await this.teamIdeaStorageProvider.UpsertIdeaAsync(postEntity);
                 }
             }
-            catch (Microsoft.WindowsAzure.Storage.StorageException ex)
+            catch (StorageException ex)
             {
                 if (ex.RequestInformation.HttpStatusCode == StatusCodes.Status412PreconditionFailed)
                 {
