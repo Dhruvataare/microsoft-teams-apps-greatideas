@@ -5,10 +5,14 @@
 namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
 {
     using System;
+    using System.IO;
+    using System.Net.Http;
+    using System.Text;
     using System.Threading.Tasks;
     using Microsoft.ApplicationInsights;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
     using Microsoft.Teams.Apps.SubmitIdea.Authentication;
     using Microsoft.Teams.Apps.SubmitIdea.Common;
@@ -27,6 +31,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
         /// Logger implementation to send logs to the logger service.
         /// </summary>
         private readonly ILogger logger;
+        private readonly IConfiguration configuration;
 
         /// <summary>
         /// Instance of team post storage helper to update idea and get information of ideas.
@@ -63,8 +68,10 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
         /// <param name="ideaSearchService">The team post search service dependency injection.</param>
         /// <param name="categoryStorageProvider">Category storage provider dependency injection.</param>
         /// <param name="teamCategoryStorageProvider">Team category storage provider dependency injection.</param>
+        /// <param name="configuration">Team category storage provider configuration injection.</param>
         public IdeaController(
             ILogger<IdeaController> logger,
+            IConfiguration configuration,
             TelemetryClient telemetryClient,
             IIdeaStorageHelper ideaStorageHelper,
             IIdeaStorageProvider ideaStorageProvider,
@@ -75,6 +82,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
         {
             this.logger = logger;
             this.ideaStorageHelper = ideaStorageHelper;
+            this.configuration = configuration;
             this.ideaSearchService = ideaSearchService;
             this.ideaStorageProvider = ideaStorageProvider;
             this.categoryStorageProvider = categoryStorageProvider;
@@ -185,17 +193,39 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                     CategoryId = ideaEntity.CategoryId,
                     DocumentLinks = ideaEntity.DocumentLinks,
                     Tags = ideaEntity.Tags,
+                    ApproverEmailAddress = ideaEntity.ApproverEmailAddress,  // Added on Feb 2 ,2023
                     CreatedByUserPrincipalName = this.UserPrincipalName,
-#pragma warning restore CA1062 // team idea entity is validated by model validations for null check and is responded with bad request status
+                    AssignedTo = ideaEntity.CreatedByUserPrincipalName,
+                    PainPointsofCurrentProcess = ideaEntity.PainPointsofCurrentProcess,
+                    AffectedTeams = ideaEntity.AffectedTeams,
+                    NumberImpactedPeople = ideaEntity.NumberImpactedPeople,
+                    PersonalAppItemProductivity = ideaEntity.PersonalAppItemProductivity,
+                    WorkflowParticipantsCatgeory = ideaEntity.WorkflowParticipantsCatgeory,
+                    ToolsRequiredDevelopmentCategory = ideaEntity.ToolsRequiredDevelopmentCategory,
+                    NumberPeoplePerformingTask = ideaEntity.NumberPeoplePerformingTask,
+                    AmountPerMonth = ideaEntity.AmountPerMonth,
+                    HoursSpentPerMonth = ideaEntity.HoursSpentPerMonth,
+                    CurrentStateOfTrust = ideaEntity.CurrentStateOfTrust,
+                    WorkflowProcessMap = ideaEntity.WorkflowProcessMap,
+                    ProcessMappingTechnology = ideaEntity.ProcessMappingTechnology,
+                    NumberPeopleUsingSolution = ideaEntity.NumberPeopleUsingSolution,
+                    NumberBackendDataSources = ideaEntity.NumberBackendDataSources,
+                    NumberStepsinWorkFlow = ideaEntity.NumberStepsinWorkFlow,
+                    RequireAttachments = ideaEntity.RequireAttachments,
+                    RequireOfflineSupport = ideaEntity.RequireOfflineSupport,
+                    SolutionSharedOutsideTenant = ideaEntity.SolutionSharedOutsideTenant,
+                    SolutionRequiredDowntime = ideaEntity.SolutionRequiredDowntime,
+                    SolutionRequiredTables = ideaEntity.SolutionRequiredTables,
+                    ProcessMapDocumentLink = ideaEntity.ProcessMapDocumentLink,
+                    SolutionUsageFrequency = ideaEntity.SolutionUsageFrequency,
+                    DataAccessibility = ideaEntity.DataAccessibility,
+#pragma warning restore CA1062 // team idea entity is validated by model validations for null check and is responded with bad request status\
                 };
-
                 var result = await this.ideaStorageProvider.UpsertIdeaAsync(updatedTeamPostEntity);
-
                 if (result)
                 {
                     this.RecordEvent("Idea - HTTP Post call succeeded");
                     await this.ideaSearchService.RunIndexerOnDemandAsync();
-
                     return this.Ok(updatedTeamPostEntity);
                 }
 
@@ -242,18 +272,78 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                 }
 
                 entity.ApprovedOrRejectedByName = this.UserName;
+                entity.ApproverEmailAddress = this.UserPrincipalName;
                 entity.ApproverOrRejecterUserId = this.UserAadId;
                 entity.Status = ideaEntity.Status;
                 entity.Feedback = ideaEntity.Feedback;
                 entity.Category = ideaEntity.Category;
                 entity.CategoryId = ideaEntity.CategoryId;
                 entity.UpdatedDate = DateTime.UtcNow;
+
+                // Adding Additional Entity Members to pass the Entity Field Value as an XML to power automate Flow
+                entity.IdeaId = ideaEntity.IdeaId;
+                entity.AssignedTo = ideaEntity.AssignedTo;
+                entity.CreatedByObjectId = ideaEntity.CreatedByObjectId;
+                entity.CreatedByName = ideaEntity.CreatedByName;
+                entity.CreatedDate = ideaEntity.CreatedDate;
+                entity.TotalVotes = ideaEntity.TotalVotes;
+                entity.Title = ideaEntity.Title;
+                entity.Description = ideaEntity.Description;
+                entity.DocumentLinks = ideaEntity.DocumentLinks;
+                entity.Tags = ideaEntity.Tags;
+                entity.CreatedByUserPrincipalName = ideaEntity.CreatedByUserPrincipalName;
+                entity.PainPointsofCurrentProcess = ideaEntity.PainPointsofCurrentProcess;
+                entity.AffectedTeams = ideaEntity.AffectedTeams;
+                entity.NumberImpactedPeople = ideaEntity.NumberImpactedPeople;
+                entity.PersonalAppItemProductivity = ideaEntity.PersonalAppItemProductivity;
+                entity.WorkflowParticipantsCatgeory = ideaEntity.WorkflowParticipantsCatgeory;
+                entity.ToolsRequiredDevelopmentCategory = ideaEntity.ToolsRequiredDevelopmentCategory;
+                entity.NumberPeoplePerformingTask = ideaEntity.NumberPeoplePerformingTask;
+                entity.AmountPerMonth = ideaEntity.AmountPerMonth;
+                entity.HoursSpentPerMonth = ideaEntity.HoursSpentPerMonth;
+                entity.CurrentStateOfTrust = ideaEntity.CurrentStateOfTrust;
+                entity.WorkflowProcessMap = ideaEntity.WorkflowProcessMap;
+                entity.ProcessMappingTechnology = ideaEntity.ProcessMappingTechnology;
+                entity.NumberPeopleUsingSolution = ideaEntity.NumberPeopleUsingSolution;
+                entity.NumberBackendDataSources = ideaEntity.NumberBackendDataSources;
+                entity.NumberStepsinWorkFlow = ideaEntity.NumberStepsinWorkFlow;
+                entity.RequireAttachments = ideaEntity.RequireAttachments;
+                entity.RequireOfflineSupport = ideaEntity.RequireOfflineSupport;
+                entity.SolutionSharedOutsideTenant = ideaEntity.SolutionSharedOutsideTenant;
+                entity.SolutionRequiredDowntime = ideaEntity.SolutionRequiredDowntime;
+                entity.SolutionRequiredTables = ideaEntity.SolutionRequiredTables;
+                entity.ProcessMapDocumentLink = ideaEntity.ProcessMapDocumentLink;
+                entity.SolutionUsageFrequency = ideaEntity.SolutionUsageFrequency;
+                entity.DataAccessibility = ideaEntity.DataAccessibility;
                 var result = await this.ideaStorageProvider.UpsertIdeaAsync(entity);
 
+                // Serializing the Above Data members into a XML. This XML will be sent http post body to the power automate Flow-entity.GetType()
                 if (result)
                 {
-                    this.RecordEvent("Team idea - HTTP Patch call succeeded");
-                    await this.ideaSearchService.RunIndexerOnDemandAsync();
+                    if (entity.Status == 1)
+                    {
+                        System.Xml.Serialization.XmlSerializer xmlSerializer = new System.Xml.Serialization.XmlSerializer(typeof(IdeaEntity));
+                        var xml = string.Empty;
+                        using (var mem = new MemoryStream())
+                        {
+                            xmlSerializer.Serialize(mem, entity);
+                            xml = Encoding.UTF8.GetString(mem.ToArray());
+                        }
+
+                        var myAppSettings = this.configuration.GetSection("App:PowerAppsHandoffURL").Value;
+                        Uri newuri = new Uri(myAppSettings);
+                        var client = new HttpClient();
+                        StringContent httpContent = new StringContent(xml, Encoding.UTF8);
+                        var response = await client.PostAsync(newuri, httpContent);
+                        int code = (int)response.StatusCode;
+                        this.RecordEvent("Team idea - HTTP Patch call succeeded");
+                        await this.ideaSearchService.RunIndexerOnDemandAsync();
+                    }
+                    else
+                    {
+                        this.RecordEvent("Team idea - HTTP Patch call succeeded");
+                        await this.ideaSearchService.RunIndexerOnDemandAsync();
+                    }
                 }
 
                 return this.Ok(result);
@@ -360,7 +450,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
                     userObjectId: null);
 
                 var uniqueCategoryIds = this.ideaStorageHelper.GetCategoryIds(teamPosts);
-                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(uniqueCategoryIds);
+                var categories = await this.categoryStorageProvider.GetCategoriesByIdsAsync(null, uniqueCategoryIds);
                 this.RecordEvent("Team idea unique category- HTTP get call succeeded");
 
                 return this.Ok(categories);

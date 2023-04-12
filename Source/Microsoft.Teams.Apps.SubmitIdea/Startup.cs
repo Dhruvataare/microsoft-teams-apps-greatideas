@@ -11,6 +11,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
     using Microsoft.Bot.Connector.Authentication;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Teams.Apps.SubmitIdea.Authentication;
 
     /// <summary>
@@ -62,7 +63,7 @@ namespace Microsoft.Teams.Apps.SubmitIdea
         /// </summary>
         /// <param name="app">The application.</param>
         /// <param name="env">Hosting Environment.</param>
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseAuthentication();
             app.UseRequestLocalization();

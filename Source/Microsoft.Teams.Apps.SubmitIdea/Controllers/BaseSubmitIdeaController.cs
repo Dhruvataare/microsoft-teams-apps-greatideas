@@ -86,6 +86,23 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Controllers
         }
 
         /// <summary>
+        /// Gets the user Email from the HttpContext.- Added on Feb 2,2023
+        /// </summary>
+        protected string UserEmailAddress
+        {
+            get
+            {
+                string emailaddress = this.User.FindFirstValue(ClaimTypes.Email);
+                if (emailaddress == null)
+                {
+                    return null;
+                }
+
+                return emailaddress;
+            }
+        }
+
+        /// <summary>
         /// Gets the user principal name from the HttpContext.
         /// </summary>
         protected string UserPrincipalName

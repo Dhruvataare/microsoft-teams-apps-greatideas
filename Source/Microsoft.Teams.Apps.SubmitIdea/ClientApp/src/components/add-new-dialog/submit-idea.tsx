@@ -52,7 +52,7 @@ export interface ITagValidationParameters {
 const browserHistory = createBrowserHistory();
 
 class SubmitIdea extends React.Component<WithTranslation, IState> {
-    localize: TFunction | any;
+    localize: TFunction;
     userObjectId: string = "";
     upn: string = "";
     items: any;
@@ -307,6 +307,7 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
                 description: this.state.ideaDescription,
                 title: this.state.ideaTitle,
                 documentLinks: JSON.stringify(this.state.documentsList),
+                painPointsofCurrentProcess: undefined,
                 tags: this.state.tagsList.join(";"),
                 status: ApprovalStatus.Pending,
                 totalVotes: undefined,
@@ -317,7 +318,30 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
                 createdDate: undefined,
                 feedback: undefined,
                 ideaId: undefined,
-                updatedDate: undefined
+                updatedDate: undefined,
+                //selectedPainpointsCurrentProcess: undefined,
+                affectedTeams: undefined,
+                numberImpactedPeople: undefined,
+                personalAppItemProductivity: undefined,
+                workflowParticipantsCatgeory: undefined,
+                toolsRequiredDevelopmentCategory: undefined,
+                numberPeoplePerformingTask: undefined,
+                amountPerMonth: undefined,
+                hoursSpentPerMonth: undefined,
+                currentStateOfTrust: undefined,
+                workflowProcessMap: undefined,
+                processMappingTechnology: undefined,
+                numberPeopleUsingSolution: undefined,
+                numberBackendDataSources: undefined,
+                numberStepsinWorkFlow: undefined,
+                requireAttachments: undefined,
+                requireOfflineSupport: undefined,
+                solutionSharedOutsideTenant: undefined,
+                solutionRequiredDowntime: undefined,
+                processMapDocumentLink: undefined, 
+                solutionRequiredTables: undefined,   
+                solutionUsageFrequency: undefined,
+                dataAccessibility: undefined,
             }
 
             // Post idea
@@ -489,7 +513,7 @@ class SubmitIdea extends React.Component<WithTranslation, IState> {
                                     </Flex.Item>
                                 </Flex>
                                 <Flex gap="gap.smaller" className="margin-top-small" vAlign="center">
-                                    <Input placeholder={this.localize("documentPlaceholder")} fluid value={this.state.documentLink} onKeyDown={this.onDocumentKeyDown}
+                                    <Input placeholder={this.localize("documentPlaceholder")} fluid value={this.state.documentLink} onKeyDown={this.onDocumentKeyDown} 
                                         onChange={(event: any) => this.onDocumentChange(event.target.value)} />
                                     <Flex.Item push>
                                         <div></div>

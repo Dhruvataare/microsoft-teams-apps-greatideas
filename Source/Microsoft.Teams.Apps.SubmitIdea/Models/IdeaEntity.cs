@@ -128,5 +128,130 @@ namespace Microsoft.Teams.Apps.SubmitIdea.Models
         /// Gets or sets feedback comment if admin has rejected idea request.
         /// </summary>
         public string Feedback { get; set; }
+
+        /// <summary>
+        /// Gets or sets email Address of idea creator
+        /// </summary>
+        public string ApproverEmailAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets name of user to whom the idea is assigned.
+        /// </summary>
+        public string AssignedTo { get; set; }
+
+        /// <summary>
+        /// Gets or sets Pain Points of Current Process.
+        /// </summary>
+        public string PainPointsofCurrentProcess { get; set; }
+
+        /// <summary>
+        /// Gets or sets Affected Teams
+        /// </summary>
+        public string AffectedTeams { get; set; }
+
+        /// <summary>
+        /// Gets or sets Number Impacted People
+        /// </summary>
+        public int NumberImpactedPeople { get; set; }
+
+        /// <summary>
+        /// Gets or sets PersonalAppProductivity.
+        /// </summary>
+        public string PersonalAppItemProductivity { get; set; }
+
+        /// <summary>
+        /// Gets or sets WorkflowParticipantsCatgeory.
+        /// </summary>
+        public string WorkflowParticipantsCatgeory { get; set; }
+
+        /// <summary>
+        /// Gets or sets toolsRequiredDevelopmentCategory.
+        /// </summary>
+        public string ToolsRequiredDevelopmentCategory { get; set; }
+
+        /// <summary>
+        /// Gets or sets Number of People Peforming Tasks.
+        /// </summary>
+        public int NumberPeoplePerformingTask { get; set; }
+
+        /// <summary>
+        /// Gets or sets Amount Per Month.
+        /// </summary>
+        public int AmountPerMonth { get; set; }
+
+        /// <summary>
+        /// Gets or sets Amount Per Month.
+        /// </summary>
+        public int HoursSpentPerMonth { get; set; }
+
+        /// <summary>
+        /// Gets or sets Trust.
+        /// </summary>
+        public string CurrentStateOfTrust { get; set; }
+
+        /// <summary>
+        /// Gets or sets workflowProcessMap.
+        /// </summary>
+        public string WorkflowProcessMap { get; set; }
+
+        /// <summary>
+        /// Gets or sets ProcessMappingTechnology.
+        /// </summary>
+        public string ProcessMappingTechnology { get; set; }
+
+        /// <summary>
+        /// Gets or sets Number of People Using Solution.
+        /// </summary>
+        public int NumberPeopleUsingSolution { get; set; }
+
+        /// <summary>
+        /// Gets or sets Number of backend DataSources.
+        /// </summary>
+        public int NumberBackendDataSources { get; set; }
+
+        /// <summary>
+        /// Gets or sets Number of WorkflowSteps.
+        /// </summary>
+        public int NumberStepsinWorkFlow { get; set; }
+
+        /// <summary>
+        /// Gets or sets Require Attachments.
+        /// </summary>
+        public string RequireAttachments { get; set; }
+
+        /// <summary>
+        /// Gets or sets Require Offline Support.
+        /// </summary>
+        public string RequireOfflineSupport { get; set; }
+
+        /// <summary>
+        /// Gets or sets Solution Shared.
+        /// </summary>
+        public string SolutionSharedOutsideTenant { get; set; }
+
+        /// <summary>
+        /// Gets or sets Solution Required Downtime.
+        /// </summary>
+        public string SolutionRequiredDowntime { get; set; }
+
+        /// <summary>
+        /// Gets or sets Solution Tables
+        /// </summary>
+        public string SolutionRequiredTables { get; set; }
+
+        /// <summary>
+        /// Gets or sets supporting document links for idea in json format.
+        /// </summary>
+        public string ProcessMapDocumentLink { get; set; }
+
+        /// <summary>
+        /// Gets or sets supporting document links for idea in json format.
+        /// </summary>
+        public string SolutionUsageFrequency { get; set; }
+
+        /// <summary>
+        /// Gets or sets supporting document links for idea in json format.
+        /// </summary>
+        public string DataAccessibility { get; set; }
     }
 }
