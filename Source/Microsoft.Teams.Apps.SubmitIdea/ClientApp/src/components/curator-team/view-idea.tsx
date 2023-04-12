@@ -3,8 +3,6 @@
 // </copyright>
 
 import * as React from "react";
-import { alert } from "react-alert";
-import CurrencyInput from "react-currency-input-field";
 import { WithTranslation, withTranslation } from "react-i18next";
 import * as microsoftTeams from "@microsoft/teams-js";
 import {
